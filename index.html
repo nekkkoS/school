@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Форма отзыва</title>
+</head>
+<body>
+
+<form id="feedbackForm">
+  <label for="firstName">Введите ваше имя:</label>
+  <input type="text" id="firstName" name="firstName" required><br><br>
+  
+  <label for="lastName">Введите вашу фамилию:</label>
+  <input type="text" id="lastName" name="lastName" required><br><br>
+  
+  <label for="feedback">Введите ваш отзыв:</label>
+  <textarea id="feedback" name="feedback" required></textarea><br><br>
+  
+  <button type="submit">Отправить</button>
+</form>
+
+<script>
+// Подключаем обработчик события submit к форме
+document.getElementById('feedbackForm').onsubmit = function(event) {
+    // Предотвращаем стандартное поведение формы (отправку данных на сервер)
+    // event.preventDefault();
+
+    // Получаем значения полей формы
+    var firstName = document.getElementById('firstName').value;
+    var lastName = document.getElementById('lastName').value;
+    var feedback = document.getElementById('feedback').value;
+
+    // Выводим значения в alert
+    alert("Имя: " + firstName + "\nФамилия: " + lastName + "\nОтзыв: " + feedback);
+};
+</script>
+
+</body>
+</html>
