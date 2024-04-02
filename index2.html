@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Форма отзыва</title>
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  /* form {
+    text-align: center;
+    padding-top: 20px; 
+  }
+  form input, form textarea, form button {
+    margin-bottom: 10px;
+  } */
+</style>
+</head>
+<body>
+
+<form id="feedbackForm">
+  <label for="firstName">Введите ваше имя:</label><br>
+  <input type="text" id="firstName" name="firstName" required><br><br>
+  
+  <label for="lastName">Введите вашу фамилию:</label><br>
+  <input type="text" id="lastName" name="lastName" required><br><br>
+  
+  <label for="feedback">Введите ваш отзыв:</label><br>
+  <textarea id="feedback" name="feedback" required></textarea><br><br>
+  
+  <button type="submit">Отправить</button>
+</form>
+
+<script>
+document.getElementById('feedbackForm').onsubmit = function(event) {
+    event.preventDefault();
+
+    // Получаем значения полей формы
+    var firstName = document.getElementById('firstName').value;
+    var lastName = document.getElementById('lastName').value;
+    var feedback = document.getElementById('feedback').value;
+
+    // Выводим значения в alert
+    alert("Имя: " + firstName + "\nФамилия: " + lastName + "\nОтзыв: " + feedback);
+};
+</script>
+
+</body>
+</html>

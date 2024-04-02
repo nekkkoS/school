@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Save Data to JSON</title>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Функция для создания JSON файла и его загрузки
+    function downloadJson(jsonData, filename) {
+      const jsonStr = JSON.stringify(jsonData);
+      const blob = new Blob([jsonStr], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.style.display = "none";
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+    }
+
+    // Обработчик события нажатия на кнопку "Сохранить"
+    document.getElementById("saveBtn").addEventListener("click", function() {
+      const data = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        age: document.getElementById("age").value
+      };
+      downloadJson(data, "data.json");
+    });
+  });
+</script>
+</head>
+<body>
+  <h2>Введите данные:</h2>
+  <form>
+    <label for="name">Имя:</label><br>
+    <input type="text" id="name" name="name"><br>
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email"><br>
+    <label for="age">Возраст:</label><br>
+    <input type="number" id="age" name="age"><br><br>
+    <button type="button" id="saveBtn">Сохранить</button>
+  </form>
+</body>
+</html>
