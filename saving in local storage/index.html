@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Save Data to JSON</title>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Функция для сохранения данных из формы в localStorage
+    function saveDataToLocalStorage() {
+      const data = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        age: document.getElementById("age").value
+      };
+      localStorage.setItem("formData", JSON.stringify(data));
+      alert("Данные сохранены в localStorage!");
+    }
+
+    // Функция для загрузки данных из localStorage и сохранения в файл
+    function saveDataToFile() {
+      const data = localStorage.getItem("formData");
+      if (data) {
+        const jsonData = JSON.parse(data);
+        const jsonDataStr = JSON.stringify(jsonData, null, 2); // Форматируем JSON для читаемости
+        const blob = new Blob([jsonDataStr], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.style.display = "none";
+        a.href = url;
+        a.download = "data.json";
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        alert("Данные сохранены в файл data.json!");
+      } else {
+        alert("Нет данных для сохранения!");
+      }
+    }
+
+    // Обработчик события нажатия на кнопку "Сохранить данные"
+    document.getElementById("saveDataBtn").addEventListener("click", saveDataToLocalStorage);
+
+    // Обработчик события нажатия на кнопку "Сохранить в файл"
+    document.getElementById("saveFileBtn").addEventListener("click", saveDataToFile);
+
+    // Загрузка данных из localStorage при загрузке страницы
+    const savedData = JSON.parse(localStorage.getItem("formData")) || {};
+    document.getElementById("name").value = savedData.name || "";
+    document.getElementById("email").value = savedData.email || "";
+    document.getElementById("age").value = savedData.age || "";
+  });
+</script>
+</head>
+<body>
+  <h2>Введите данные:</h2>
+  <form>
+    <label for="name">Имя:</label><br>
+    <input type="text" id="name" name="name"><br>
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email"><br>
+    <label for="age">Возраст:</label><br>
+    <input type="number" id="age" name="age"><br><br>
+    <button type="button" id="saveDataBtn">Сохранить данные в localStorage</button><br><br>
+    <button type="button" id="saveFileBtn">Сохранить данные из localStorage в файл</button>
+  </form>
+</body>
+</html>
